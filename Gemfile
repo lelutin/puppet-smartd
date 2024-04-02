@@ -11,7 +11,7 @@ group :development, :test do
   # Use info from metadata.json for tests
   # rubocop:disable Bundler/DuplicatedGem
   gem 'puppet_metadata', '~> 3.0', require: false if Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new('2.7.0')
-  gem 'puppet_metadata', '~> 2.1', require: false if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.7.0')
+  gem 'puppet_metadata', '~> 3.0', require: false if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.7.0')
   # rubocop:enable Bundler/DuplicatedGem
   gem 'puppet-syntax',            require: false
   gem 'rspec-puppet', '>= 2.4',   require: false
