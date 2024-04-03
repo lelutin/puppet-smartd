@@ -17,8 +17,8 @@ group :development, :test do
   gem 'rspec-puppet', '>= 2.4',   require: false
   # This draws in rubocop and other useful gems for puppet tests
   # rubocop:disable Bundler/DuplicatedGem
-  gem 'voxpupuli-test', '~> 6.0', require: false if Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new('2.7.0')
-  gem 'voxpupuli-test', '~> 5.7', require: false if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.7.0')
+  gem 'voxpupuli-test', '~> 7.0', require: false if Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new('2.7.0')
+  gem 'voxpupuli-test', '~> 7.0', require: false if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.7.0')
   # rubocop:enable Bundler/DuplicatedGem
 end
 
