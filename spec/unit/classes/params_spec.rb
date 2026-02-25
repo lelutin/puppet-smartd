@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'smartd::params', type: :class do
@@ -17,7 +19,7 @@ describe 'smartd::params', type: :class do
               major: '6',
             },
           },
-        },
+        }
       )
     end
 

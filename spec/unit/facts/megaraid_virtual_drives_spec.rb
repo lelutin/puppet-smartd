@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'megaraid_virtual_drives', type: :fact do
-  before(:each) { Facter.clear }
+  before { Facter.clear }
 
   describe 'when on linux' do
     context 'with megacli not in path' do
@@ -34,7 +36,7 @@ describe 'megaraid_virtual_drives', type: :fact do
     end
 
     context 'with 1 adapter' do
-      before(:each) do
+      before do
         facts = {
           blockdevice_sda_model: 'MR9286CV-8e',
           blockdevice_sda_size: '32001801322496',

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Facter.add(:megacli) do
   confine kernel: :linux
 

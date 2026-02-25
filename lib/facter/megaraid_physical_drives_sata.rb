@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Facter.add(:megaraid_physical_drives_sata) do
   confine kernel: 'Linux'
 
@@ -5,7 +7,7 @@ Facter.add(:megaraid_physical_drives_sata) do
     megacli           = Facter.value(:megacli)
     megaraid_adapters = Facter.value(:megaraid_adapters)
 
-    next if megacli.nil? || megaraid_adapters.nil? || (megaraid_adapters == 0)
+    next if megacli.nil? || megaraid_adapters.nil? || megaraid_adapters.zero?
 
     # XXX there is no support for handling more than one adapter
     pds = []

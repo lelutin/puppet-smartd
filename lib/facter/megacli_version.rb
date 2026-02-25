@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Facter.add(:megacli_version) do
   megacli = Facter.value(:megacli)
   version_commands = ["#{megacli} -Version -Cli -aALL -NoLog",

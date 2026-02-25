@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'megaraid_fw_version', type: :fact do
-  before(:each) { Facter.clear }
+  before { Facter.clear }
 
   context 'when megacli fact not set' do
     it 'returns nil' do
@@ -22,9 +24,9 @@ describe 'megaraid_fw_version', type: :fact do
       it 'returns the version string using modern binary' do
         allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
         allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(false)
-        allow(Facter::Util::Resolution).to receive(:exec)
-          .with('/usr/bin/MegaCli -Version -Ctrl -aALL -NoLog')
-          .and_return(File.read(fixtures('megacli', 'version-ctrl-aall-8.07.07')))
+        allow(Facter::Util::Resolution).to receive(:exec).
+          with('/usr/bin/MegaCli -Version -Ctrl -aALL -NoLog').
+          and_return(File.read(fixtures('megacli', 'version-ctrl-aall-8.07.07')))
         expect(Facter.fact(:megaraid_fw_version).value).to eq('3.340.05-2939')
       end
     end
@@ -33,9 +35,9 @@ describe 'megaraid_fw_version', type: :fact do
       it 'returns the version string using legacy binary' do
         allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
         allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(true)
-        allow(Facter::Util::Resolution).to receive(:exec)
-          .with('/usr/bin/MegaCli -AdpAllInfo -aALL -NoLog')
-          .and_return(File.read(fixtures('megacli', 'adpallinfo-aall-8.00.11')))
+        allow(Facter::Util::Resolution).to receive(:exec).
+          with('/usr/bin/MegaCli -AdpAllInfo -aALL -NoLog').
+          and_return(File.read(fixtures('megacli', 'adpallinfo-aall-8.00.11')))
         expect(Facter.fact(:megaraid_fw_version).value).to eq('2.120.14-2138')
       end
     end

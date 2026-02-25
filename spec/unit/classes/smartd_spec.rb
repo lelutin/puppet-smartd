@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'smartd', type: :class do
   shared_examples_for 'default' do |values|
-    content = (values && values[:content]) ? values[:content] : ['DEFAULT -m root -M daily', 'DEVICESCAN']
-    config_file = (values && values[:config_file]) ? values[:config_file] : '/etc/smartd.conf'
-    group = (values && values[:group]) ? values[:group] : 0
+    content = values && values[:content] ? values[:content] : ['DEFAULT -m root -M daily', 'DEVICESCAN']
+    config_file = values && values[:config_file] ? values[:config_file] : '/etc/smartd.conf'
+    group = values && values[:group] ? values[:group] : 0
 
     it { is_expected.to contain_package('smartmontools').with_ensure('installed') }
 
@@ -13,7 +15,7 @@ describe 'smartd', type: :class do
         ensure: 'present',
         owner: 'root',
         group: group,
-        mode: '0644',
+        mode: '0644'
       )
     end
 
@@ -209,9 +211,9 @@ describe 'smartd', type: :class do
       describe 'devicescan =>' do
         context 'when using default value' do
           it do
-            is_expected.to contain_file('/etc/smartd.conf')
-              .with_ensure('present')
-              .with_content(%r{^DEVICESCAN$})
+            is_expected.to contain_file('/etc/smartd.conf').
+              with_ensure('present').
+              with_content(%r{^DEVICESCAN$})
           end
         end
         # default value
@@ -220,20 +222,20 @@ describe 'smartd', type: :class do
           let(:params) { { devicescan: true } }
 
           it do
-            is_expected.to contain_file('/etc/smartd.conf')
-              .with_ensure('present')
-              .with_content(%r{^DEVICESCAN$})
+            is_expected.to contain_file('/etc/smartd.conf').
+              with_ensure('present').
+              with_content(%r{^DEVICESCAN$})
           end
 
           context 'with enable_default => false' do
-            before(:each) do
+            before do
               params[:enable_default] = false
             end
 
             it 'has the same arguments as DEFAULT would have' do
-              is_expected.to contain_file('/etc/smartd.conf')
-                .with_ensure('present')
-                .with_content(%r{^DEVICESCAN -m root -M daily$})
+              is_expected.to contain_file('/etc/smartd.conf').
+                with_ensure('present').
+                with_content(%r{^DEVICESCAN -m root -M daily$})
             end
           end
         end
@@ -243,9 +245,9 @@ describe 'smartd', type: :class do
           let(:params) { { devicescan: false } }
 
           it do
-            is_expected.to contain_file('/etc/smartd.conf')
-              .with_ensure('present')
-              .without_content(%r{^DEVICESCAN$})
+            is_expected.to contain_file('/etc/smartd.conf').
+              with_ensure('present').
+              without_content(%r{^DEVICESCAN$})
           end
         end
         # devicescan = false
@@ -364,27 +366,27 @@ describe 'smartd', type: :class do
       describe 'enable_default =>' do
         context 'when using default value' do
           context 'with fact smartmontool_version = "5.43"' do
-            before(:each) do
+            before do
               facts[:smartmontools_version] = '5.43'
             end
 
             it do
-              is_expected.to contain_file('/etc/smartd.conf')
-                .with_ensure('present')
-                .with_content(%r{DEFAULT -m root -M daily})
+              is_expected.to contain_file('/etc/smartd.conf').
+                with_ensure('present').
+                with_content(%r{DEFAULT -m root -M daily})
             end
           end
 
           context 'with fact smartmontool_version = "5.42"' do
-            before(:each) do
+            before do
               facts[:smartmontools_version] = '5.42'
             end
 
             it do
-              is_expected.to contain_file('/etc/smartd.conf')
-                .with_ensure('present')
-                .without_content(%r{DEFAULT -m root -M daily})
-                .with_content(%r{DEVICESCAN -m root -M daily})
+              is_expected.to contain_file('/etc/smartd.conf').
+                with_ensure('present').
+                without_content(%r{DEFAULT -m root -M daily}).
+                with_content(%r{DEVICESCAN -m root -M daily})
             end
           end
         end
@@ -394,9 +396,9 @@ describe 'smartd', type: :class do
           let(:params) { { enable_default: true } }
 
           it do
-            is_expected.to contain_file('/etc/smartd.conf')
-              .with_ensure('present')
-              .with_content(%r{DEFAULT -m root -M daily})
+            is_expected.to contain_file('/etc/smartd.conf').
+              with_ensure('present').
+              with_content(%r{DEFAULT -m root -M daily})
           end
         end
 
@@ -404,10 +406,10 @@ describe 'smartd', type: :class do
           let(:params) { { enable_default: false } }
 
           it do
-            is_expected.to contain_file('/etc/smartd.conf')
-              .with_ensure('present')
-              .without_content(%r{DEFAULT -m root -M daily})
-              .with_content(%r{DEVICESCAN -m root -M daily})
+            is_expected.to contain_file('/etc/smartd.conf').
+              with_ensure('present').
+              without_content(%r{DEFAULT -m root -M daily}).
+              with_content(%r{DEVICESCAN -m root -M daily})
           end
         end
       end
@@ -418,27 +420,27 @@ describe 'smartd', type: :class do
           let(:params) { {} }
 
           context 'with enable_default => true' do
-            before(:each) do
+            before do
               params[:enable_default] = true
             end
 
             it do
-              is_expected.to contain_file('/etc/smartd.conf')
-                .with_ensure('present')
-                .with_content(%r{DEFAULT -m root -M daily})
+              is_expected.to contain_file('/etc/smartd.conf').
+                with_ensure('present').
+                with_content(%r{DEFAULT -m root -M daily})
             end
           end
 
           context 'with enable_default => false' do
-            before(:each) do
+            before do
               params[:enable_default] = false
             end
 
             it do
-              is_expected.to contain_file('/etc/smartd.conf')
-                .with_ensure('present')
-                .without_content(%r{DEFAULT -m root -M daily})
-                .with_content(%r{DEVICESCAN -m root -M daily})
+              is_expected.to contain_file('/etc/smartd.conf').
+                with_ensure('present').
+                without_content(%r{DEFAULT -m root -M daily}).
+                with_content(%r{DEVICESCAN -m root -M daily})
             end
           end
         end
@@ -448,27 +450,27 @@ describe 'smartd', type: :class do
           let(:params) { { default_options: nil } }
 
           context 'with enable_default => true' do
-            before(:each) do
+            before do
               params[:enable_default] = true
             end
 
             it do
-              is_expected.to contain_file('/etc/smartd.conf')
-                .with_ensure('present')
-                .with_content(%r{DEFAULT -m root -M daily})
+              is_expected.to contain_file('/etc/smartd.conf').
+                with_ensure('present').
+                with_content(%r{DEFAULT -m root -M daily})
             end
           end
 
           context 'with enable_default => false' do
-            before(:each) do
+            before do
               params[:enable_default] = false
             end
 
             it do
-              is_expected.to contain_file('/etc/smartd.conf')
-                .with_ensure('present')
-                .without_content(%r{DEFAULT -m root -M daily})
-                .with_content(%r{DEVICESCAN -m root -M daily})
+              is_expected.to contain_file('/etc/smartd.conf').
+                with_ensure('present').
+                without_content(%r{DEFAULT -m root -M daily}).
+                with_content(%r{DEVICESCAN -m root -M daily})
             end
           end
         end
@@ -478,27 +480,27 @@ describe 'smartd', type: :class do
           let(:params) { { default_options: '-H' } }
 
           context 'with enable_default => true' do
-            before(:each) do
+            before do
               params[:enable_default] = true
             end
 
             it do
-              is_expected.to contain_file('/etc/smartd.conf')
-                .with_ensure('present')
-                .with_content(%r{DEFAULT -m root -M daily -H})
+              is_expected.to contain_file('/etc/smartd.conf').
+                with_ensure('present').
+                with_content(%r{DEFAULT -m root -M daily -H})
             end
           end
 
           context 'with enable_default => false' do
-            before(:each) do
+            before do
               params[:enable_default] = false
             end
 
             it do
-              is_expected.to contain_file('/etc/smartd.conf')
-                .with_ensure('present')
-                .without_content(%r{DEFAULT -m root -M daily -H})
-                .with_content(%r{DEVICESCAN -m root -M daily -H})
+              is_expected.to contain_file('/etc/smartd.conf').
+                with_ensure('present').
+                without_content(%r{DEFAULT -m root -M daily -H}).
+                with_content(%r{DEVICESCAN -m root -M daily -H})
             end
           end
         end
@@ -581,13 +583,13 @@ describe 'smartd', type: :class do
         super().merge(
           {
             megaraid_physical_drives_sata: '2,1',
-          },
+          }
         )
       end
 
       it do
-        is_expected.to contain_file('/etc/smartd.conf')
-          .with_content(<<-ENDFILE.gsub(%r{^\s+}, ''))
+        is_expected.to contain_file('/etc/smartd.conf').
+          with_content(<<-ENDFILE.gsub(%r{^\s+}, ''))
             # Managed by Puppet -- do not edit!
             DEFAULT -m root -M daily
             /dev/sda -d sat+megaraid,1
@@ -602,13 +604,13 @@ describe 'smartd', type: :class do
         super().merge(
           {
             megaraid_physical_drives_sas: '2,1',
-          },
+          }
         )
       end
 
       it do
-        is_expected.to contain_file('/etc/smartd.conf')
-          .with_content(<<-ENDFILE.gsub(%r{^\s+}, ''))
+        is_expected.to contain_file('/etc/smartd.conf').
+          with_content(<<-ENDFILE.gsub(%r{^\s+}, ''))
             # Managed by Puppet -- do not edit!
             DEFAULT -m root -M daily
             /dev/sda -d megaraid,1
@@ -624,13 +626,13 @@ describe 'smartd', type: :class do
           {
             megaraid_physical_drives_sas: '1,2',
             megaraid_physical_drives_sata: '3,4',
-          },
+          }
         )
       end
 
       it do
-        is_expected.to contain_file('/etc/smartd.conf')
-          .with_content(<<-ENDFILE.gsub(%r{^\s+}, ''))
+        is_expected.to contain_file('/etc/smartd.conf').
+          with_content(<<-ENDFILE.gsub(%r{^\s+}, ''))
             # Managed by Puppet -- do not edit!
             DEFAULT -m root -M daily
             /dev/sda -d sat+megaraid,3
@@ -647,7 +649,7 @@ describe 'smartd', type: :class do
         super().merge(
           {
             megaraid_physical_drives_sata: '2,1',
-          },
+          }
         )
       end
       let(:params) do
@@ -661,8 +663,8 @@ describe 'smartd', type: :class do
         is_expected.to contain_class('smartd::params')
         is_expected.to contain_package('smartmontools')
         is_expected.to contain_service('smartd')
-        is_expected.to contain_file('/etc/smartd.conf')
-          .with_content(<<-ENDFILE.gsub(%r{^\s+}, ''))
+        is_expected.to contain_file('/etc/smartd.conf').
+          with_content(<<-ENDFILE.gsub(%r{^\s+}, ''))
             # Managed by Puppet -- do not edit!
             DEFAULT -m root -M daily
             /dev/sda -d sat+megaraid,1 -I 194

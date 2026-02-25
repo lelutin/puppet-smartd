@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'smartd', type: :fact do
-  before(:each) { Facter.clear }
+  before { Facter.clear }
 
   context 'when smartd not in path' do
     it do

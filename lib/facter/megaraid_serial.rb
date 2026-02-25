@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Facter.add(:megaraid_serial) do
   confine megacli_legacy: false
 

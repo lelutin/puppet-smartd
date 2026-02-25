@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'megaraid_physical_drives_sata', type: :fact do
-  before(:each) { Facter.clear }
+  before { Facter.clear }
 
   describe 'when on linux' do
     context 'with megacli not in path' do
@@ -26,9 +28,9 @@ describe 'megaraid_physical_drives_sata', type: :fact do
         allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
         allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
         allow(Facter.fact(:megaraid_adapters)).to receive(:value).and_return('1')
-        allow(Facter::Util::Resolution).to receive(:exec)
-          .with('/usr/bin/MegaCli -PDList -aALL -NoLog')
-          .and_return(nil)
+        allow(Facter::Util::Resolution).to receive(:exec).
+          with('/usr/bin/MegaCli -PDList -aALL -NoLog').
+          and_return(nil)
 
         expect(Facter.fact(:megaraid_physical_drives_sata).value).to be_nil
       end
@@ -54,9 +56,9 @@ describe 'megaraid_physical_drives_sata', type: :fact do
         allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
         allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
         allow(Facter.fact(:megaraid_adapters)).to receive(:value).and_return('1')
-        allow(Facter::Util::Resolution).to receive(:exec)
-          .with('/usr/bin/MegaCli -PDList -aALL -NoLog')
-          .and_return(File.read(fixtures('megacli', 'pdlistaall')))
+        allow(Facter::Util::Resolution).to receive(:exec).
+          with('/usr/bin/MegaCli -PDList -aALL -NoLog').
+          and_return(File.read(fixtures('megacli', 'pdlistaall')))
 
         expect(Facter.fact(:megaraid_physical_drives_sata).value).to eq(drives_list)
       end

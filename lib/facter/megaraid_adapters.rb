@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Figure out if this machine has AMI/LSI MegaRAID aka Dell PERC
 # storage controllers, and if so, how many physical disks are
 # attached.  Currently implemented only on Linux because none of

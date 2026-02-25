@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'megacli', type: :fact do
-  before(:each) { Facter.clear }
+  before { Facter.clear }
 
   context 'when on linux' do
     context 'with megacli not in path' do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Facter.add(:smartmontools_version) do
   smartd = Facter.value(:smartd)
   setcode do
