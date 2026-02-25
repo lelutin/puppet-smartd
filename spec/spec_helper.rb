@@ -1,4 +1,4 @@
-require 'puppetlabs_spec_helper/module_spec_helper'
-# require 'rpsec-puppet-facts'
+require 'rspec-puppet-facts'
+require 'voxpupuli/test/spec_helper'
 
 ENV['STRICT_VARIABLES'] = 'no'
