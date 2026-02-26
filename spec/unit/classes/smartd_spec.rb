@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'smartd', type: :class do
   shared_examples_for 'default' do |values|
-    content = values && values[:content] ? values[:content] : ['DEFAULT -m root -M daily', 'DEVICESCAN']
+    content = values && values[:content] ? values[:content] : %r{^(DEFAULT -m root -M daily|^DEVICESCAN)}
     config_file = values && values[:config_file] ? values[:config_file] : '/etc/smartd.conf'
     group = values && values[:group] ? values[:group] : 0
 
@@ -20,7 +20,7 @@ describe 'smartd', type: :class do
     end
 
     it "contains File[#{config_file}] with correct contents" do
-      verify_contents(catalogue, config_file, content)
+      is_expected.to contain_file(config_file).with_content(content)
     end
   end
 
@@ -260,10 +260,7 @@ describe 'smartd', type: :class do
         it { is_expected.to contain_file('/etc/smartd.conf').with_ensure('present') }
 
         it 'contains file /etc/smartd.conf with contents ...' do
-          verify_contents(catalogue, '/etc/smartd.conf', [
-                            'DEFAULT -m root -M daily',
-                            'DEVICESCAN somevalue',
-                          ])
+          is_expected.to contain_file('/etc/smartd.conf').with_content(%r{^DEFAULT -m root -M daily}).with_content(%r{^DEVICESCAN somevalue})
         end
       end
 
@@ -280,11 +277,7 @@ describe 'smartd', type: :class do
         it { is_expected.to contain_file('/etc/smartd.conf').with_ensure('present') }
 
         it 'contains file /etc/smartd.conf with contents ...' do
-          verify_contents(catalogue, '/etc/smartd.conf', [
-                            'DEFAULT -m root -M daily',
-                            '/dev/sg1',
-                            '/dev/sg2',
-                          ])
+          is_expected.to contain_file('/etc/smartd.conf').with_content(%r{^DEFAULT -m root -M daily}).with_content(%r{^/dev/sg1}).with_content(%r{^/dev/sg2})
         end
       end
 
@@ -301,11 +294,7 @@ describe 'smartd', type: :class do
         it { is_expected.to contain_file('/etc/smartd.conf').with_ensure('present') }
 
         it 'contains file /etc/smartd.conf with contents ...' do
-          verify_contents(catalogue, '/etc/smartd.conf', [
-                            'DEFAULT -m root -M daily',
-                            '/dev/sg1 -o on -S on -a',
-                            '/dev/sg2 -o on -S on -a',
-                          ])
+          is_expected.to contain_file('/etc/smartd.conf').with_content(%r{^DEFAULT -m root -M daily}).with_content(%r{^/dev/sg1 -o on -S on -a}).with_content(%r{^/dev/sg2 -o on -S on -a})
         end
       end
 
@@ -327,15 +316,13 @@ describe 'smartd', type: :class do
         it { is_expected.to contain_file('/etc/smartd.conf').with_ensure('present') }
 
         it 'contains file /etc/smartd.conf with contents ...' do
-          verify_contents(catalogue, '/etc/smartd.conf', [
-                            'DEFAULT -m root -M daily',
-                            '/dev/cciss/c0d0 -d cciss,0 -a -o on -S on',
-                            '/dev/cciss/c0d0 -d cciss,1 -a -o on -S on',
-                            '/dev/cciss/c0d0 -d cciss,2 -a -o on -S on',
-                            '/dev/cciss/c0d0 -d cciss,3 -a -o on -S on',
-                            '/dev/cciss/c0d0 -d cciss,4 -a -o on -S on',
-                            '/dev/cciss/c0d0 -d cciss,5 -a -o on -S on',
-                          ])
+          is_expected.to contain_file('/etc/smartd.conf').with_content(%r{^DEFAULT -m root -M daily})
+            .with_content(%r{^/dev/cciss/c0d0 -d cciss,0 -a -o on -S on})
+            .with_content(%r{^/dev/cciss/c0d0 -d cciss,1 -a -o on -S on})
+            .with_content(%r{^/dev/cciss/c0d0 -d cciss,2 -a -o on -S on})
+            .with_content(%r{^/dev/cciss/c0d0 -d cciss,3 -a -o on -S on})
+            .with_content(%r{^/dev/cciss/c0d0 -d cciss,4 -a -o on -S on})
+            .with_content(%r{^/dev/cciss/c0d0 -d cciss,5 -a -o on -S on})
         end
       end
 
@@ -345,9 +332,7 @@ describe 'smartd', type: :class do
         it { is_expected.to contain_file('/etc/smartd.conf').with_ensure('present') }
 
         it 'contains file /etc/smartd.conf with contents ...' do
-          verify_contents(catalogue, '/etc/smartd.conf', [
-                            'DEFAULT -m someguy@localdomain -M daily',
-                          ])
+          is_expected.to contain_file('/etc/smartd.conf').with_content(%r{^DEFAULT -m someguy@localdomain -M daily})
         end
       end
 
@@ -357,9 +342,7 @@ describe 'smartd', type: :class do
         it { is_expected.to contain_file('/etc/smartd.conf').with_ensure('present') }
 
         it 'contains file /etc/smartd.conf with contents ...' do
-          verify_contents(catalogue, '/etc/smartd.conf', [
-                            'DEFAULT -m root -M diminishing',
-                          ])
+          is_expected.to contain_file('/etc/smartd.conf').with_content(%r{^DEFAULT -m root -M diminishing})
         end
       end
 
