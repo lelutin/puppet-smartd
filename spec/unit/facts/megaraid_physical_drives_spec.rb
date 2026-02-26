@@ -60,7 +60,7 @@ describe 'megaraid_physical_drives', type: :fact do
         allow(Facter.fact(:megaraid_adapters)).to receive(:value).and_return('1')
         allow(Facter::Util::Resolution).to receive(:exec).
           with('/usr/bin/MegaCli -PDList -aALL -NoLog').
-          and_return(File.read(fixtures('megacli', 'pdlistaall')))
+          and_return(file_fixture('megacli/pdlistaall').read)
 
         expect(Facter.fact(:megaraid_physical_drives).value).to eq(drives_list)
       end

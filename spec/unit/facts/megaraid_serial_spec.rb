@@ -26,7 +26,7 @@ describe 'megaraid_serial', type: :fact do
         allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(false)
         allow(Facter::Util::Resolution).to receive(:exec).
           with('/usr/bin/MegaCli -Version -Ctrl -aALL -NoLog').
-          and_return(File.read(fixtures('megacli', 'version-ctrl-aall-8.07.07')))
+          and_return(file_fixture('megacli/version-ctrl-aall-8.07.07').read)
         expect(Facter.fact(:megaraid_serial).value).to eq('SV22925366')
       end
 
@@ -36,7 +36,7 @@ describe 'megaraid_serial', type: :fact do
           allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(false)
           allow(Facter::Util::Resolution).to receive(:exec).
             with('/usr/bin/MegaCli -Version -Ctrl -aALL -NoLog').
-            and_return(File.read(fixtures('megacli', 'version-ctrl-aall-sm_no_serial')))
+            and_return(file_fixture('megacli/version-ctrl-aall-sm_no_serial').read)
           expect(Facter.fact(:megaraid_serial).value).to be_nil
         end
       end
@@ -48,7 +48,7 @@ describe 'megaraid_serial', type: :fact do
         allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(true)
         allow(Facter::Util::Resolution).to receive(:exec).
           with('/usr/bin/MegaCli -AdpAllInfo -aALL -NoLog').
-          and_return(File.read(fixtures('megacli', 'adpallinfo-aall-8.00.11')))
+          and_return(file_fixture('megacli/adpallinfo-aall-8.00.11').read)
         expect(Facter.fact(:megaraid_serial).value).to eq('34A03AB')
       end
 
@@ -58,7 +58,7 @@ describe 'megaraid_serial', type: :fact do
           allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(true)
           allow(Facter::Util::Resolution).to receive(:exec).
             with('/usr/bin/MegaCli -AdpAllInfo -aALL -NoLog').
-            and_return(File.read(fixtures('megacli', 'adpallinfo-aall-8.00.11-dell_no_serial')))
+            and_return(file_fixture('megacli/adpallinfo-aall-8.00.11-dell_no_serial').read)
           expect(Facter.fact(:megaraid_serial).value).to be_nil
         end
       end

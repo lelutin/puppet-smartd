@@ -24,7 +24,7 @@ describe 'megacli_version', type: :fact do
       allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
       allow(Facter::Util::Resolution).to receive(:exec).
         with('/usr/bin/MegaCli -Version -Cli -aALL -NoLog').
-        and_return(File.read(fixtures('megacli', 'version-cli-aall-8.07.07')))
+        and_return(file_fixture('megacli/version-cli-aall-8.07.07').read)
       expect(Facter.fact(:megacli_version).value).to eq('8.07.07')
     end
 
@@ -32,10 +32,10 @@ describe 'megacli_version', type: :fact do
       allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
       allow(Facter::Util::Resolution).to receive(:exec).
         with('/usr/bin/MegaCli -Version -Cli -aALL -NoLog').
-        and_return(File.read(fixtures('megacli', 'invalid-input-8.00.11')))
+        and_return(file_fixture('megacli/invalid-input-8.00.11').read)
       allow(Facter::Util::Resolution).to receive(:exec).
         with('/usr/bin/MegaCli -v -aALL -NoLog').
-        and_return(File.read(fixtures('megacli', 'version-aall-8.00.11')))
+        and_return(file_fixture('megacli/version-aall-8.00.11').read)
       expect(Facter.fact(:megacli_version).value).to eq('8.00.11')
     end
   end

@@ -24,7 +24,7 @@ describe 'smartmontools_version', type: :fact do
       allow(Facter.fact(:smartd)).to receive(:value).and_return('/usr/sbin/smartd')
       allow(Facter::Util::Resolution).to receive(:exec).
         with('/usr/sbin/smartd --version').
-        and_return(File.read(fixtures('smartd', 'version-smartmontools-5.42-2.el5')))
+        and_return(file_fixture('smartd/version-smartmontools-5.42-2.el5').read)
       expect(Facter.fact(:smartmontools_version).value).to eq('5.42')
     end
 
@@ -32,7 +32,7 @@ describe 'smartmontools_version', type: :fact do
       allow(Facter.fact(:smartd)).to receive(:value).and_return('/usr/sbin/smartd')
       allow(Facter::Util::Resolution).to receive(:exec).
         with('/usr/sbin/smartd --version').
-        and_return(File.read(fixtures('smartd', 'version-smartmontools-5.43-1.el6.x86_64')))
+        and_return(file_fixture('smartd/version-smartmontools-5.43-1.el6.x86_64').read)
       expect(Facter.fact(:smartmontools_version).value).to eq('5.43')
     end
   end

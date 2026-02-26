@@ -33,7 +33,7 @@ describe 'megaraid_adapters', type: :fact do
         allow(Facter::Util::Resolution).to receive(:which).with('MegaCli').and_return('/usr/bin/MegaCli')
         allow(Facter::Util::Resolution).to receive(:exec).
           with('/usr/bin/MegaCli -adpCount -NoLog 2>&1').
-          and_return(File.read(fixtures('megacli', 'adpcount-count_0')))
+          and_return(file_fixture('megacli/adpcount-count_0').read)
 
         expect(Facter.fact(:megaraid_adapters).value).to eq('0')
       end
@@ -43,7 +43,7 @@ describe 'megaraid_adapters', type: :fact do
         allow(Facter::Util::Resolution).to receive(:which).with('MegaCli').and_return('/usr/bin/MegaCli')
         allow(Facter::Util::Resolution).to receive(:exec).
           with('/usr/bin/MegaCli -adpCount -NoLog 2>&1').
-          and_return(File.read(fixtures('megacli', 'adpcount-count_1')))
+          and_return(file_fixture('megacli/adpcount-count_1').read)
 
         expect(Facter.fact(:megaraid_adapters).value).to eq('1')
       end

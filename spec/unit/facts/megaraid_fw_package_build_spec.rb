@@ -26,7 +26,7 @@ describe 'megaraid_fw_package_build', type: :fact do
         allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(false)
         allow(Facter::Util::Resolution).to receive(:exec).
           with('/usr/bin/MegaCli -Version -Ctrl -aALL -NoLog').
-          and_return(File.read(fixtures('megacli', 'version-ctrl-aall-8.07.07')))
+          and_return(file_fixture('megacli/version-ctrl-aall-8.07.07').read)
         expect(Facter.fact(:megaraid_fw_package_build).value).to eq('23.22.0-0012')
       end
     end
@@ -37,7 +37,7 @@ describe 'megaraid_fw_package_build', type: :fact do
         allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(true)
         allow(Facter::Util::Resolution).to receive(:exec).
           with('/usr/bin/MegaCli -AdpAllInfo -aALL -NoLog').
-          and_return(File.read(fixtures('megacli', 'adpallinfo-aall-8.00.11')))
+          and_return(file_fixture('megacli/adpallinfo-aall-8.00.11').read)
         expect(Facter.fact(:megaraid_fw_package_build).value).to eq('20.12.0-0004')
       end
     end
