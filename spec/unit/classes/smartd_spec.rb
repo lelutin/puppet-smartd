@@ -316,13 +316,13 @@ describe 'smartd', type: :class do
         it { is_expected.to contain_file('/etc/smartd.conf').with_ensure('present') }
 
         it 'contains file /etc/smartd.conf with contents ...' do
-          is_expected.to contain_file('/etc/smartd.conf').with_content(%r{^DEFAULT -m root -M daily})
-            .with_content(%r{^/dev/cciss/c0d0 -d cciss,0 -a -o on -S on})
-            .with_content(%r{^/dev/cciss/c0d0 -d cciss,1 -a -o on -S on})
-            .with_content(%r{^/dev/cciss/c0d0 -d cciss,2 -a -o on -S on})
-            .with_content(%r{^/dev/cciss/c0d0 -d cciss,3 -a -o on -S on})
-            .with_content(%r{^/dev/cciss/c0d0 -d cciss,4 -a -o on -S on})
-            .with_content(%r{^/dev/cciss/c0d0 -d cciss,5 -a -o on -S on})
+          is_expected.to contain_file('/etc/smartd.conf').with_content(%r{^DEFAULT -m root -M daily}).
+            with_content(%r{^/dev/cciss/c0d0 -d cciss,0 -a -o on -S on}).
+            with_content(%r{^/dev/cciss/c0d0 -d cciss,1 -a -o on -S on}).
+            with_content(%r{^/dev/cciss/c0d0 -d cciss,2 -a -o on -S on}).
+            with_content(%r{^/dev/cciss/c0d0 -d cciss,3 -a -o on -S on}).
+            with_content(%r{^/dev/cciss/c0d0 -d cciss,4 -a -o on -S on}).
+            with_content(%r{^/dev/cciss/c0d0 -d cciss,5 -a -o on -S on})
         end
       end
 
