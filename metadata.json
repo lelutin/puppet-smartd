@@ -27,7 +27,6 @@
     {
       "operatingsystem": "Scientific",
       "operatingsystemrelease": [
-        "8",
         "9",
         "10"
       ]
