@@ -107,7 +107,7 @@ class smartd (
     default: {}
   }
 
-  ensure_packages([$package_name], { ensure => $pkg_ensure })
+  stdlib::ensure_packages([$package_name], { ensure => $pkg_ensure })
 
   if $srv_manage {
     service { $service_name:
