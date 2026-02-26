@@ -23,7 +23,7 @@ describe 'megaraid_adapters', type: :fact do
           with('/usr/bin/MegaCli -adpCount -NoLog 2>&1').
           and_return(nil)
 
-        expect(Facter.fact(:megaraid_adapters).value).to eq('0')
+        expect(Facter.fact(:megaraid_adapters).value).to eq(0)
       end
     end
 
@@ -35,7 +35,7 @@ describe 'megaraid_adapters', type: :fact do
           with('/usr/bin/MegaCli -adpCount -NoLog 2>&1').
           and_return(file_fixture('megacli/adpcount-count_0').read)
 
-        expect(Facter.fact(:megaraid_adapters).value).to eq('0')
+        expect(Facter.fact(:megaraid_adapters).value).to eq(0)
       end
 
       it 'finds 1 adapter' do
@@ -45,7 +45,7 @@ describe 'megaraid_adapters', type: :fact do
           with('/usr/bin/MegaCli -adpCount -NoLog 2>&1').
           and_return(file_fixture('megacli/adpcount-count_1').read)
 
-        expect(Facter.fact(:megaraid_adapters).value).to eq('1')
+        expect(Facter.fact(:megaraid_adapters).value).to eq(1)
       end
     end
   end

@@ -29,7 +29,7 @@ describe 'megaraid_virtual_drives', type: :fact do
       it do
         allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
         allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
-        allow(Facter.fact(:megaraid_adapters)).to receive(:value).and_return('0')
+        allow(Facter.fact(:megaraid_adapters)).to receive(:value).and_return(0)
 
         expect(Facter.fact(:megaraid_virtual_drives).value).to be_nil
       end
@@ -87,7 +87,7 @@ describe 'megaraid_virtual_drives', type: :fact do
       it do
         allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
         allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
-        allow(Facter.fact(:megaraid_adapters)).to receive(:value).and_return('1')
+        allow(Facter.fact(:megaraid_adapters)).to receive(:value).and_return(1)
 
         expect(Facter.fact(:megaraid_virtual_drives).value).to eq('sda,sdb,sdc,sdd,sde,sdf,sdg,sdh,sdk')
       end
