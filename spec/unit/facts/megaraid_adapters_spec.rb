@@ -19,7 +19,7 @@ describe 'megaraid_adapters', type: :fact do
       it do
         allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
         allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
-        allow(Facter::Util::Resolution).to receive(:exec).
+        allow(Facter::Core::Execution).to receive(:execute).
           with('/usr/bin/MegaCli -adpCount -NoLog 2>&1').
           and_return(nil)
 
@@ -30,8 +30,8 @@ describe 'megaraid_adapters', type: :fact do
     context 'with megacli working' do
       it 'finds 0 adapters' do
         allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
-        allow(Facter::Util::Resolution).to receive(:which).with('MegaCli').and_return('/usr/bin/MegaCli')
-        allow(Facter::Util::Resolution).to receive(:exec).
+        allow(Facter::Core::Execution).to receive(:which).with('MegaCli').and_return('/usr/bin/MegaCli')
+        allow(Facter::Core::Execution).to receive(:execute).
           with('/usr/bin/MegaCli -adpCount -NoLog 2>&1').
           and_return(file_fixture('megacli/adpcount-count_0').read)
 
@@ -40,8 +40,8 @@ describe 'megaraid_adapters', type: :fact do
 
       it 'finds 1 adapter' do
         allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
-        allow(Facter::Util::Resolution).to receive(:which).with('MegaCli').and_return('/usr/bin/MegaCli')
-        allow(Facter::Util::Resolution).to receive(:exec).
+        allow(Facter::Core::Execution).to receive(:which).with('MegaCli').and_return('/usr/bin/MegaCli')
+        allow(Facter::Core::Execution).to receive(:execute).
           with('/usr/bin/MegaCli -adpCount -NoLog 2>&1').
           and_return(file_fixture('megacli/adpcount-count_1').read)
 

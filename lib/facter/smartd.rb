@@ -2,6 +2,6 @@
 
 Facter.add(:smartd) do
   setcode do
-    Facter::Util::Resolution.which('smartd')
+    Facter::Core::Execution.which('smartd')
   end
 end

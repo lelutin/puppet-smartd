@@ -12,7 +12,7 @@ Facter.add(:megacli_version) do
     # This is a bit hacky, but we need to try different commands to ascertain
     # the version of the megacli binary.
     version_commands.each do |cmd|
-      output = Facter::Util::Resolution.exec(cmd)
+      output = Facter::Core::Execution.execute(cmd)
       next if output.nil?
 
       m = output.match(%r{MegaCLI SAS RAID Management Tool  Ver ([\d.]+)})

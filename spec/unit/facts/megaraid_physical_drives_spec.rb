@@ -28,7 +28,7 @@ describe 'megaraid_physical_drives', type: :fact do
         allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
         allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
         allow(Facter.fact(:megaraid_adapters)).to receive(:value).and_return(1)
-        allow(Facter::Util::Resolution).to receive(:exec).
+        allow(Facter::Core::Execution).to receive(:execute).
           with('/usr/bin/MegaCli -PDList -aALL -NoLog').
           and_return(nil)
 
@@ -58,7 +58,7 @@ describe 'megaraid_physical_drives', type: :fact do
         allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
         allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
         allow(Facter.fact(:megaraid_adapters)).to receive(:value).and_return(1)
-        allow(Facter::Util::Resolution).to receive(:exec).
+        allow(Facter::Core::Execution).to receive(:execute).
           with('/usr/bin/MegaCli -PDList -aALL -NoLog').
           and_return(file_fixture('megacli/pdlistaall').read)
 

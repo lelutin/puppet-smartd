@@ -22,7 +22,7 @@ describe 'megacli_version', type: :fact do
   context 'when megacli fact is working' do
     it 'returns the version string using modern binary' do
       allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
-      allow(Facter::Util::Resolution).to receive(:exec).
+      allow(Facter::Core::Execution).to receive(:execute).
         with('/usr/bin/MegaCli -Version -Cli -aALL -NoLog').
         and_return(file_fixture('megacli/version-cli-aall-8.07.07').read)
       expect(Facter.fact(:megacli_version).value).to eq('8.07.07')
@@ -30,10 +30,10 @@ describe 'megacli_version', type: :fact do
 
     it 'returns the version string using legacy binary' do
       allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
-      allow(Facter::Util::Resolution).to receive(:exec).
+      allow(Facter::Core::Execution).to receive(:execute).
         with('/usr/bin/MegaCli -Version -Cli -aALL -NoLog').
         and_return(file_fixture('megacli/invalid-input-8.00.11').read)
-      allow(Facter::Util::Resolution).to receive(:exec).
+      allow(Facter::Core::Execution).to receive(:execute).
         with('/usr/bin/MegaCli -v -aALL -NoLog').
         and_return(file_fixture('megacli/version-aall-8.00.11').read)
       expect(Facter.fact(:megacli_version).value).to eq('8.00.11')
