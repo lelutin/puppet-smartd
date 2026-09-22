@@ -7,7 +7,7 @@ Facter.add(:megaraid_serial) do
   setcode do
     next if megacli.nil?
 
-    output = Facter::Util::Resolution.exec("#{megacli} -Version -Ctrl -aALL -NoLog")
+    output = Facter::Core::Execution.execute("#{megacli} -Version -Ctrl -aALL -NoLog")
     next if output.nil?
 
     m = output.match(%r{Serial No\s*:\s*(\S+)\s*$})
@@ -25,7 +25,7 @@ Facter.add(:megaraid_serial) do
   setcode do
     next if megacli.nil?
 
-    output = Facter::Util::Resolution.exec("#{megacli} -AdpAllInfo -aALL -NoLog")
+    output = Facter::Core::Execution.execute("#{megacli} -AdpAllInfo -aALL -NoLog")
     next if output.nil?
 
     m = output.match(%r{Serial No\s*:\s*(\S+)\s*$})

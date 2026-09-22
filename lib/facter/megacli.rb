@@ -8,7 +8,7 @@ Facter.add(:megacli) do
   setcode do
     path = nil
     megacli_binaries.each do |bin|
-      path = Facter::Util::Resolution.which(bin)
+      path = Facter::Core::Execution.which(bin)
       next if path.nil?
 
       break

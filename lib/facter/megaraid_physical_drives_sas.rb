@@ -11,7 +11,7 @@ Facter.add(:megaraid_physical_drives_sas) do
 
     # XXX there is no support for handling more than one adapter
     pds = []
-    list = Facter::Util::Resolution.exec("#{megacli} -PDList -aALL -NoLog")
+    list = Facter::Core::Execution.execute("#{megacli} -PDList -aALL -NoLog")
     next if list.nil?
 
     dev_id = nil

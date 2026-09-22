@@ -24,7 +24,7 @@ describe 'megaraid_serial', type: :fact do
       it 'returns the serial number using modern binary' do
         allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
         allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(false)
-        allow(Facter::Util::Resolution).to receive(:exec).
+        allow(Facter::Core::Execution).to receive(:execute).
           with('/usr/bin/MegaCli -Version -Ctrl -aALL -NoLog').
           and_return(file_fixture('megacli/version-ctrl-aall-8.07.07').read)
         expect(Facter.fact(:megaraid_serial).value).to eq('SV22925366')
@@ -34,7 +34,7 @@ describe 'megaraid_serial', type: :fact do
         it 'returns nil' do
           allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
           allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(false)
-          allow(Facter::Util::Resolution).to receive(:exec).
+          allow(Facter::Core::Execution).to receive(:execute).
             with('/usr/bin/MegaCli -Version -Ctrl -aALL -NoLog').
             and_return(file_fixture('megacli/version-ctrl-aall-sm_no_serial').read)
           expect(Facter.fact(:megaraid_serial).value).to be_nil
@@ -46,7 +46,7 @@ describe 'megaraid_serial', type: :fact do
       it 'returns the serial number using legacy binary' do
         allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
         allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(true)
-        allow(Facter::Util::Resolution).to receive(:exec).
+        allow(Facter::Core::Execution).to receive(:execute).
           with('/usr/bin/MegaCli -AdpAllInfo -aALL -NoLog').
           and_return(file_fixture('megacli/adpallinfo-aall-8.00.11').read)
         expect(Facter.fact(:megaraid_serial).value).to eq('34A03AB')
@@ -56,7 +56,7 @@ describe 'megaraid_serial', type: :fact do
         it 'returns nil' do
           allow(Facter.fact(:megacli)).to receive(:value).and_return('/usr/bin/MegaCli')
           allow(Facter.fact(:megacli_legacy)).to receive(:value).and_return(true)
-          allow(Facter::Util::Resolution).to receive(:exec).
+          allow(Facter::Core::Execution).to receive(:execute).
             with('/usr/bin/MegaCli -AdpAllInfo -aALL -NoLog').
             and_return(file_fixture('megacli/adpallinfo-aall-8.00.11-dell_no_serial').read)
           expect(Facter.fact(:megaraid_serial).value).to be_nil
