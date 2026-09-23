@@ -2,10 +2,13 @@ source 'https://rubygems.org'
 
 gem 'rake'
 
-gem 'facter', ENV['FACTER_GEM_VERSION'], require: false
-gem 'puppet', ENV['PUPPET_GEM_VERSION'], require: false
-
 group :development, :test do
+  unless ENV.fetch('OPENVOX_GEM_VERSION', nil) then
+    gem 'puppet', ENV['PUPPET_GEM_VERSION'], require: false
+  else
+    gem 'openvox', ENV.fetch('OPENVOX_GEM_VERSION', [">= 8.19.0", "< 9"]), :require => false
+  end
+
   # This draws in rubocop and other useful gems for puppet tests
   gem 'voxpupuli-test', '~> 13.2.0', require: false
   # Use info from metadata.json for tests

@@ -348,11 +348,14 @@ Limitations
 
 ### Tested Platforms
 
-These are the platforms that have had integration testing since the fork.
+The platforms and release versions being supported are listed in
+`metadata.json`. That file is directly used by CI to determine what should get
+tested, so it's the best source of information for what's supported.
 
-* el6.x
-* el5.x
-
+This module still supports puppet 7 and 8, and it also supports openvox starting
+with version 8.19.0. In the future, I plan to phase out support for puppet in
+favor of openvox. Most probably the phasing out will happen as debian releases
+without openvox move out of security support.
 
 Versioning
 ----------
